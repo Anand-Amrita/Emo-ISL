@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="home-container">
+  <video width="500" height="380" class="center" autoplay loop muted>
+    <source src="{% static 'Hello/Hello-happy.mp4' %}" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="form-style" align="center">
+    <a href="{% url 'animation' %}">
+      <button class="start-button">Click to Start</button>
+    </a>
+  </div>
+</div>
+
+<style>
+  .home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    color: #4b0082;
+  }
+
+  .start-button {
+    margin-top: 30px;
+    padding: 15px 40px;
+    background-color: #7c3aed;
+    color: white;
+    font-size: 22px;
+    font-family: 'Segoe UI', sans-serif;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(124, 58, 237, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .start-button:hover {
+    background-color: #5b21b6;
+  }
+
+  .center {
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.2);
+  }
+</style>
+{% endblock %}

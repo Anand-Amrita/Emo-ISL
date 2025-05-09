@@ -1,0 +1,438 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Main Container and Typography */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  h1 {
+    color: #7c3aed;
+    font-size: 2.25rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  h2 {
+    color: #5b21b6;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    color: #5b21b6;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Layout */
+  .panel-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  
+  .panel {
+    flex: 1 1 45%;
+    min-width: 300px;
+  }
+  
+  .left-panel {
+    background-color: #f5f3ff;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form Elements */
+  .input-container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  .text-input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    border: 2px solid #d8b4fe;
+    border-radius: 0.5rem 0 0 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .text-input:focus {
+    outline: none;
+    border-color: #8b5cf6;
+  }
+  
+  .mic-button {
+    background-color: #e9d5ff;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .mic-button:hover {
+    background-color: #d8b4fe;
+  }
+  
+  .mic-active {
+    background-color: #fecaca;
+  }
+  
+  .submit-button {
+    width: 100%;
+    background-color: #8b5cf6;
+    color: white;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .submit-button:hover {
+    background-color: #7c3aed;
+  }
+  
+  /* Info Cards */
+  .info-card {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+  }
+  
+  .info-section {
+    margin-bottom: 1rem;
+  }
+  
+  .info-section:last-child {
+    margin-bottom: 0;
+  }
+  
+  .info-text {
+    background-color: #f5f3ff;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+  }
+  
+  /* Word List */
+  .word-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f5f3ff;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+  }
+  
+  .word-item {
+    background-color: #e9d5ff;
+    margin: 0.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    color: #4c1d95;
+    transition: all 0.3s ease;
+  }
+  
+  .word-item-active {
+    background-color: #fca5a5;
+    transform: scale(1.1);
+  }
+  
+  /* Video Player */
+  .video-container {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .emotion-tag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgba(76, 29, 149, 0.8);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0 0 0 0.5rem;
+  }
+  
+  .video-player {
+    width: 100%;
+    height: auto;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+  }
+  
+  .play-button {
+    background-color: #8b5cf6;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 1rem;
+  }
+  
+  .play-button:hover {
+    background-color: #7c3aed;
+  }
+  
+  .word-indicator {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6d28d9;
+  }
+  
+  .current-word {
+    font-weight: 600;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .animate-pulse {
+    animation: pulse 2s infinite;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .panel-container {
+      flex-direction: column;
+    }
+    
+    .panel {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+<div class="container">
+  <h1>Sign Language Translator</h1>
+
+  <div class="panel-container">
+    <!-- Left Panel -->
+    <div class="panel left-panel">
+      <h2>Input Text</h2>
+      
+      <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-container">
+          <input type="text" name="sen" class="text-input" id="speechToText" placeholder="Type or speak your text here...">
+          <button type="button" name="button" class="mic-button" onclick="record()">
+            <img src="{% static 'mic3.png' %}" height="24px" width="24px" alt="Microphone" />
+          </button>
+        </div>
+        <input type="submit" name="submit" class="submit-button" value="Translate">
+      </form>
+      
+      <div class="info-card">
+        <div class="info-section">
+          <h3>Original Input:</h3>
+          <p class="info-text">{{ original_text }}</p>
+        </div>
+        
+        <div class="info-section">
+          <h3>ISL Grammar:</h3>
+          <ul id="list" class="word-list">
+            {% for item in animation_words %}
+              <ul id="{{ forloop.counter0 }}" data-path="{{ item.path }}" class="word-item">{{ item.word }}</ul>
+            {% endfor %}
+          </ul>
+        </div>
+        
+        <div class="info-section">
+          <h3>Recognized Emotion:</h3>
+          <p class="info-text">{{ emotion }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Panel -->
+    <div class="panel">
+      <h2>Sign Language Animation</h2>
+      
+      <div style="text-align:center">
+        <button class="play-button" onclick="playPause()">
+          <span id="playPauseText">Play</span>
+        </button>
+        
+        <div class="video-container">
+          <div class="emotion-tag">
+            {{ emotion }}
+          </div>
+          <video id="videoPlayer" class="video-player" preload="auto">
+            <source src="" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+        
+        <div class="word-indicator">
+          <p>Current word: <span id="currentWordDisplay" class="current-word">-</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let isPlaying = false;
+  let videoSource = [];
+  let currentIndex = 0;
+  let emotion = "{{ emotion }}";
+  const playPauseBtn = document.getElementById("playPauseText");
+
+  function startPlayback() {
+    videoSource = [];
+    currentIndex = 0;
+
+    const items = document.getElementById("list").getElementsByTagName("ul");
+
+    for (let item of items) {
+      let word = item.innerHTML;
+      let mainPath = `/assets/${word}/${word}-${emotion}.mp4`;
+      let fallbackPath = `/assets/${word}/${word}-neutral.mp4`;
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('HEAD', mainPath, false);
+      xhr.send();
+
+      if (xhr.status !== 404) {
+        videoSource.push({ path: mainPath, word: word });
+        continue;
+      }
+
+      xhr.open('HEAD', fallbackPath, false);
+      xhr.send();
+
+      if (xhr.status !== 404) {
+        videoSource.push({ path: fallbackPath, word: word });
+        continue;
+      }
+
+      for (let char of word) {
+        let charPath = `/assets/${char}/${char}-${emotion}.mp4`;
+        xhr.open('HEAD', charPath, false);
+        xhr.send();
+
+        if (xhr.status !== 404) {
+          videoSource.push({ path: charPath, word: char });
+          continue;
+        }
+
+        let charFallback = `/assets/${char}/${char}-neutral.mp4`;
+        xhr.open('HEAD', charFallback, false);
+        xhr.send();
+
+        if (xhr.status !== 404) {
+          videoSource.push({ path: charFallback, word: char });
+        }
+      }
+    }
+
+    console.log("Final video sequence: ", videoSource);
+    playVideo(currentIndex);
+    isPlaying = true;
+    playPauseBtn.textContent = "Pause";
+  }
+
+  function playVideo(index) {
+    if (index >= videoSource.length) {
+      isPlaying = false;
+      playPauseBtn.textContent = "Play";
+      document.getElementById("currentWordDisplay").textContent = "-";
+      return;
+    }
+
+    const video = document.getElementById("videoPlayer");
+    const listItems = document.getElementById("list").getElementsByTagName("li");
+    document.getElementById("currentWordDisplay").textContent = videoSource[index].word;
+
+    // Reset all list items
+    for (let li of listItems) {
+      li.classList.remove("word-item-active");
+      li.style.transform = "scale(1)";
+    }
+
+    // Highlight current word
+    if (index < listItems.length) {
+      listItems[index].classList.add("word-item-active");
+      listItems[index].style.transform = "scale(1.1)";
+    }
+
+    video.src = videoSource[index].path;
+    video.load();
+    video.play();
+
+    video.onended = function () {
+      currentIndex++;
+      playVideo(currentIndex);
+    };
+  }
+
+  function playPause() {
+    const video = document.getElementById("videoPlayer");
+    
+    if (!isPlaying) {
+      startPlayback();
+    } else {
+      if (video.paused) {
+        video.play();
+        playPauseBtn.textContent = "Pause";
+      } else {
+        video.pause();
+        playPauseBtn.textContent = "Play";
+      }
+    }
+  }
+
+  function record() {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert("Your browser doesn't support speech recognition.");
+      return;
+    }
+    
+    // Visual feedback when recording
+    const micButton = document.querySelector('.mic-button');
+    micButton.classList.add("mic-active");
+    setTimeout(() => micButton.classList.remove("mic-active"), 3000);
+    
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+    recognition.start();
+
+    recognition.onresult = function (event) {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById("speechToText").value = transcript;
+    };
+
+    recognition.onerror = function (event) {
+      alert("Error occurred in recognition: " + event.error);
+      micButton.classList.remove("mic-active");
+    };
+    
+    recognition.onend = function() {
+      micButton.classList.remove("mic-active");
+    };
+  }
+</script>
+{% endblock %}

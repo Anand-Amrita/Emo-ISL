@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="contact-container">
+  <h2 class="title">VERSION 1.0.0</h2>
+  <hr class="divider">
+  
+  <h2 class="title">CONTACT US</h2>
+  <p class="td">For any queries regarding this website, contact us through:</p>
+  <p class="td"><strong>Email:</strong> <a href="sreeanand40@gmail.com" class="link">sreeanand40@gmail.com</a></p>
+  <p class="td"><strong>Phone:</strong> 9400579432</p>
+  
+  <hr class="divider">
+  
+  <p class="td">Thank you for visiting our website.</p>
+</div>
+
+<style>
+  .contact-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background-color: #f8f7ff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 10px rgba(124, 58, 237, 0.2);
+    color: #4b0082;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .title {
+    color: #7c3aed;
+    margin-bottom: 10px;
+  }
+
+  .divider {
+    border: 0;
+    height: 2px;
+    background: #e0d4fd;
+    margin: 20px 0;
+  }
+
+  .td {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .link {
+    color: #7c3aed;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    text-decoration: underline;
+  }
+</style>
+
+{% endblock %}

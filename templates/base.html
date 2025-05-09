@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Emo-ISL: Emotion-based Speech/Text to ISL Translator</title>
+  <style>
+    :root {
+      --primary-color: #6a0dad;
+      --secondary-color: #ffffff;
+      --highlight-color: #b388eb;
+      --text-color: #333333;
+      --accent-color: #f3e5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+      padding: 1rem 2rem;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      background-color: var(--highlight-color);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 0.5rem 0;
+      box-shadow: 0 2px 5px rgba(106, 13, 173, 0.1);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: bold;
+      padding: 0.75rem 1.25rem;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      background-color: var(--primary-color);
+      color: var(--secondary-color);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background-color: var(--accent-color);
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(106, 13, 173, 0.15);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      background-color: #f5f5f5;
+      color: #777;
+    }
+
+    /* Utilities */
+    .errorlist {
+      color: red;
+      font-weight: bold;
+    }
+
+    .td {
+      color: var(--primary-color);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    /* Style for active word in animations (e.g. #list span.active) */
+    #list {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    #list span {
+      display: inline-block;
+      margin-right: 8px;
+      padding: 2px 6px;
+      font-size: 20px;
+      transition: all 0.3s ease;
+      color: var(--primary-color);
+    }
+
+    #list span.active {
+      color: #ff4081;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Emo-ISL: Emotion-based Speech/Text to ISL Translator</h1>
+</header>
+
+<nav>
+  <a href="{% url 'home' %}">Home</a>
+  <a href="{% url 'animation' %}">Convertor</a>
+  {% if not user.is_authenticated %}
+    <a href="{% url 'signup' %}">Sign Up</a>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">Log-Out</a>
+  {% else %}
+    <a href="{% url 'login' %}">Log-in</a>
+  {% endif %}
+  <a href="{% url 'contact' %}">Contact</a>
+  <a href="{% url 'about' %}">About</a>
+</nav>
+
+<div class="wrapper">
+  {% block content %}
+  {% endblock %}
+</div>
+
+<footer>
+  &copy; 2025 Emo-ISL Team – S Anand, Nandana Ajoy, Dhruv Dinesh, Rohit Shibu Thomas
+</footer>
+
+</body>
+</html>

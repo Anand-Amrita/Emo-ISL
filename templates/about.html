@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="about-container">
+  <h1 class="headline">✨ Emo-ISL: Bridging Emotions with Sign Language ✨</h1>
+  <p class="caption">Empowering communication through innovation, empathy, and technology.</p>
+  
+  <section class="version-section">
+    <h2>Version 1.0.0</h2>
+  </section>
+
+  <hr>
+
+  <section class="mission-section">
+    <h2>Driven by Passion, Guided by Purpose</h2>
+    <p>We are a team of passionate developers dedicated to making communication inclusive for everyone.</p>
+  </section>
+
+  <hr>
+
+  <section class="team-section">
+    <h2>Meet the Creator Team</h2>
+    <ul class="team-list">
+      <li>S Anand</li>
+      <li>Nandana Ajoy</li>
+      <li>Dhruv Dinesh</li>
+      <li>Rohit Shibu Thomas</li>
+    </ul>
+  </section>
+
+  <hr>
+
+  <p class="thanks-note">Thank you for visiting Emo-ISL 💜</p>
+</div>
+
+<style>
+  .about-container {
+    background-color: #ffffff;
+    color: #4b0082;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(75, 0, 130, 0.1);
+  }
+
+  .headline {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .caption {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #6a0dad;
+  }
+
+  .version-section, .mission-section, .team-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .team-list {
+    list-style: none;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .team-list li {
+    font-size: 1.1rem;
+    padding: 0.3rem 0;
+  }
+
+  hr {
+    border: 1px solid #e0d0f5;
+    margin: 1.5rem 0;
+  }
+
+  .thanks-note {
+    text-align: center;
+    font-style: italic;
+    margin-top: 2rem;
+  }
+</style>
+{% endblock %}
